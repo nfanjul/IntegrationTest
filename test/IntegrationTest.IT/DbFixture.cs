@@ -10,7 +10,6 @@ namespace IntegrationTest.IT
             {
                 "__EFMigrationsHistory",
                 "Positions",
-                "Teams",
             },
         };
 

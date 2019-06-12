@@ -21,7 +21,6 @@ namespace IntegrationTest.IT.Scenarios
         }
 
         [Fact]
-        [Reset]
         public async Task Get_All_Teams_Return_OK()
         {
             var response = await _fixture.Server.CreateRequest(Get.GetAllTeams).GetAsync();

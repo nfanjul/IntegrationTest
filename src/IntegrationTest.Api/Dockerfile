@@ -6,6 +6,7 @@ EXPOSE 80
 EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/core/sdk:2.2-stretch AS build
+ARG BUILD_CONFIGURATION
 WORKDIR /build
 COPY ["src/IntegrationTest.Api/*.csproj", "src/IntegrationTest.Api/"]
 COPY ["src/IntegrationTest.Entities/*.csproj", "src/IntegrationTest.Entities/"]
