@@ -5,11 +5,13 @@ VisualStudioVersion = 16.0.29001.49
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IntegrationTest.Api", "src\IntegrationTest.Api\IntegrationTest.Api.csproj", "{0ABAC879-3394-43B3-9971-578188D06B6D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntegrationTest.Entities", "src\IntegrationTest.Entities\IntegrationTest.Entities.csproj", "{4191BC93-E200-43A0-8848-4BFD8B423614}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IntegrationTest.Entities", "src\IntegrationTest.Entities\IntegrationTest.Entities.csproj", "{4191BC93-E200-43A0-8848-4BFD8B423614}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{03FE8ADF-735E-467E-8EFA-B76B3DDA2A22}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntegrationTest.IT", "test\IntegrationTest.IT\IntegrationTest.IT.csproj", "{6E8D7B46-06BA-4533-A26E-89B38476A9AB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IntegrationTest.IT", "test\IntegrationTest.IT\IntegrationTest.IT.csproj", "{6E8D7B46-06BA-4533-A26E-89B38476A9AB}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{936DEE36-F4E1-4FD5-A77B-61E38434736D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,6 +31,10 @@ Global
 		{6E8D7B46-06BA-4533-A26E-89B38476A9AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6E8D7B46-06BA-4533-A26E-89B38476A9AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6E8D7B46-06BA-4533-A26E-89B38476A9AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{936DEE36-F4E1-4FD5-A77B-61E38434736D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{936DEE36-F4E1-4FD5-A77B-61E38434736D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{936DEE36-F4E1-4FD5-A77B-61E38434736D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{936DEE36-F4E1-4FD5-A77B-61E38434736D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
