@@ -19,7 +19,7 @@ namespace IntegrationTest.IT.Scenarios
 
         [Fact]
         [Reset]
-        public async Task Create_New_Team_And_Return_OK()
+        public async Task Get_All_Teams_Return_OK()
         {
             var response = await _fixture.Server.CreateRequest(Get.GetAllTeams).GetAsync();
             response.EnsureSuccessStatusCode();
