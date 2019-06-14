@@ -11,10 +11,13 @@ using Xunit;
 
 namespace IntegrationTest.IT.Scenarios
 {
+    // ITEST 5
     [Collection("Test")]
     public class TeamScenarios
     {
         private readonly TestServerFixture _fixture;
+
+        // ITEST 6
         public TeamScenarios(TestServerFixture fixture)
         {
             _fixture = fixture;
@@ -23,6 +26,7 @@ namespace IntegrationTest.IT.Scenarios
         [Fact]
         public async Task Get_All_Teams_Return_OK()
         {
+            // ITEST 7
             var response = await _fixture.Server.CreateRequest(Get.GetAllTeams).GetAsync();
             response.EnsureSuccessStatusCode();
             var json = await response.Content.ReadAsStringAsync();
@@ -31,6 +35,7 @@ namespace IntegrationTest.IT.Scenarios
         }
 
         [Fact]
+        // ITEST 8
         [Reset]
         public async Task Create_New_Team_And_Return_OK()
         {
@@ -47,6 +52,6 @@ namespace IntegrationTest.IT.Scenarios
             var result = JsonConvert.DeserializeObject<Team>(json);
             Assert.Equal("UP Langreo", result.Name);
         }
-
+        // ITEST 9 --
     }
 }

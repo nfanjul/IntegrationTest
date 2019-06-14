@@ -17,7 +17,7 @@ COPY . .
 RUN dotnet build IntegrationTest.sln -c ${BUILD_CONFIGURATION}
 
 FROM build as functionaltest
-
+ARG BUILD_CONFIGURATION
 WORKDIR /build/test/IntegrationTest.IT
 
 FROM build AS publish

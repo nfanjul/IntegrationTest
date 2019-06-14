@@ -32,8 +32,7 @@ namespace IntegrationTest.Api.Data
         {
             modelBuilder.Entity<Player>().Property(x => x.Name).HasMaxLength(50);
             modelBuilder.Entity<Player>().HasKey(x => x.Id);
-            modelBuilder.Entity<Player>()
-                .HasOne(s => s.Position);
+            modelBuilder.Entity<Player>().HasOne(s => s.Position);
         }
 
         private void SetPositionModel(ModelBuilder modelBuilder)
@@ -45,6 +44,7 @@ namespace IntegrationTest.Api.Data
 
         private static List<Position> PositionSeed()
         {
+            // SHOW 3
             return new List<Position>()
             {
                 new Position()

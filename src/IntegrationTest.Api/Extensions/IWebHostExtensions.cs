@@ -10,16 +10,14 @@ namespace IntegrationTest.Api.Extensions
 {
     public static class IWebHostExtensions
     {
+        // SHOW 5
         public static IWebHost MigrateDbContext<TContext>(this IWebHost webHost, Action<TContext, IServiceProvider> seeder) where TContext : DbContext
         {
             using (var scope = webHost.Services.CreateScope())
             {
                 var services = scope.ServiceProvider;
-
                 var logger = services.GetRequiredService<ILogger<TContext>>();
-
                 var context = services.GetService<TContext>();
-
                 logger.LogInformation($"Migrating database associated with context {typeof(TContext).Name}");
 
                 var retry = Policy.Handle<SqlException>()
@@ -32,16 +30,11 @@ namespace IntegrationTest.Api.Extensions
 
                 retry.Execute(() =>
                 {
-                    //if the sql server container is not created on run docker compose this
-                    //migration can't fail for network related exception. The retry options for DbContext only 
-                    //apply to transient exceptions.
-
                     context.Database
                     .Migrate();
 
                     seeder(context, services);
                 });
-
 
                 logger.LogInformation($"Migrated database associated with context {typeof(TContext).Name}");
             }

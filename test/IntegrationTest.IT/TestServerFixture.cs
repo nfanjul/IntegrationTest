@@ -7,6 +7,7 @@ namespace IntegrationTest.IT
 {
     public class TestServerFixture
     {
+        // ITEST 1
         public TestServer Server { get; private set; }
         private IConfigurationRoot Configuration;
 
@@ -18,6 +19,7 @@ namespace IntegrationTest.IT
         public TestServer CreateServer()
         {
             Configuration = new TestConfigurationBuilder().Build();
+            // ITEST 3
             var builder = new WebHostBuilder().UseStartup<TestStartup>();
             builder.UseConfiguration(Configuration);
             
