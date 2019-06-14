@@ -46,6 +46,7 @@ namespace IntegrationTest.IT
         public void Configure(IApplicationBuilder app)
         {
             app.UseStaticFiles();
+            app.UseHttpsRedirection();
             app.UseMvc();
         }
 
