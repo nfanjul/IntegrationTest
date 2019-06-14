@@ -6,6 +6,7 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=https://+:443;http://+:80
       - ASPNETCORE_HTTPS_PORT=44363
+      - ConnectionString=Server=sql-data-test;Initial Catalog=integrationtestDb.test;User Id=sa;Password=Pass@word;
     ports:
       - "55699:80"
       - "44363:443"
