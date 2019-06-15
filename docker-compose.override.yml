@@ -1,16 +1,6 @@
 version: '3.4'
 
 services:
-  integrationtest.api:
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=http://+:80
-      - ConnectionString=Server=sql-data-test;Initial Catalog=integrationtestDb.test;User Id=sa;Password=Pass@word;
-    ports:
-      - "55699:80"
-    volumes:
-      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
-
   sql-data-test:
     environment:
       - SA_PASSWORD=Pass@word

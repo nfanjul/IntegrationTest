@@ -1,14 +1,6 @@
 version: '3.4'
 
 services:
-  integrationtest.api:
-    image: ${DOCKER_REGISTRY-}integrationtest.api:${TAG:-latest}
-    build:
-      context: .
-      dockerfile: src/IntegrationTest.Api/Dockerfile
-      args:
-        BUILD_CONFIGURATION: ${BUILD_CONFIGURATION}
-
   sql-data-test:
     image: microsoft/mssql-server-linux:2017-latest
 

@@ -19,14 +19,3 @@ RUN dotnet build IntegrationTest.sln -c ${BUILD_CONFIGURATION}
 FROM build as functionaltest
 ARG BUILD_CONFIGURATION
 WORKDIR /build/test/IntegrationTest.IT
-
-FROM build AS publish
-ARG BUILD_CONFIGURATION
-
-WORKDIR "/build/src/IntegrationTest.Api"
-RUN dotnet publish "IntegrationTest.Api.csproj" -c ${BUILD_CONFIGURATION} -o /app --no-build
-
-FROM base AS final
-WORKDIR /app
-COPY --from=publish /app .
-ENTRYPOINT ["dotnet", "IntegrationTest.Api.dll"]
