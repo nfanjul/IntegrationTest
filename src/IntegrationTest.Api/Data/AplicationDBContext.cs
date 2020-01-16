@@ -9,7 +9,6 @@ namespace IntegrationTest.Api.Data
     {
         public DbSet<Team> Teams { get; set; }
         public DbSet<Player> Players { get; set; }
-        public DbSet<Position> Positions { get; set; }
 
         public AplicationDbContext(DbContextOptions<AplicationDbContext> options) 
             : base(options) { }
@@ -19,54 +18,60 @@ namespace IntegrationTest.Api.Data
             base.OnModelCreating(builder);
             SetTeamModel(builder);
             SetPlayerModel(builder);
-            SetPositionModel(builder);
         }
 
         private void SetTeamModel(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Team>().Property(x => x.Name).HasMaxLength(50);
             modelBuilder.Entity<Team>().HasKey(x => x.Id);
+            modelBuilder.Entity<Team>().HasData(TeamSeed().ToArray());
+        }
+
+        private static List<Team> TeamSeed()
+        {
+            // SHOW 3
+            return new List<Team>()
+            {
+                new Team()
+                {
+                    Id = Guid.NewGuid(),
+                    Name = "Real Sporting de Gijón"
+                },
+                new Team()
+                {
+                    Id = Guid.NewGuid(),
+                    Name = "Real Betis"
+                },
+                new Team()
+                {
+                    Id = Guid.NewGuid(),
+                    Name = "UP Langreo"
+                }
+            };
         }
 
         private void SetPlayerModel(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Player>().Property(x => x.Name).HasMaxLength(50);
             modelBuilder.Entity<Player>().HasKey(x => x.Id);
-            modelBuilder.Entity<Player>().HasOne(s => s.Position);
+            modelBuilder.Entity<Player>().HasData(PlayerSeed().ToArray());
         }
 
-        private void SetPositionModel(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Position>().Property(x => x.Name).HasMaxLength(50);
-            modelBuilder.Entity<Position>().HasKey(x => x.Id);
-            modelBuilder.Entity<Position>().HasData(PositionSeed().ToArray());
-        }
-
-        private static List<Position> PositionSeed()
+        private static List<Player> PlayerSeed()
         {
             // SHOW 3
-            return new List<Position>()
+            return new List<Player>()
             {
-                new Position()
+                new Player()
                 {
                     Id = Guid.NewGuid(),
-                    Name = "Portero"
+                    Name = "Diego Mariño"
                 },
-                new Position()
+                new Player()
                 {
                     Id = Guid.NewGuid(),
-                    Name = "Defensa"
-                },
-                new Position()
-                {
-                    Id = Guid.NewGuid(),
-                    Name = "Centrocampista"
-                },
-                new Position()
-                {
-                    Id = Guid.NewGuid(),
-                    Name = "Delantero"
-                },
+                    Name = "Manu García"
+                }
             };
         }
 

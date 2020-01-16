@@ -2,6 +2,7 @@
 using IntegrationTest.Api.Models.Teams;
 using IntegrationTest.Entities;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,14 +26,14 @@ namespace IntegrationTest.Api.Controllers
         [HttpGet]
         [ProducesResponseType(typeof(List<Team>), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.NotFound)]
-        public IActionResult Get()
+        public async Task<IActionResult> Get()
         {
-            var teams = _context.Teams;
+            var teams = await _context.Teams.ToListAsync();
             if(!teams.Any())
             {
                 return NotFound($"Teams not found");
             }
-            return Ok(_context.Teams);
+            return Ok(teams);
         }
 
         [HttpPost]

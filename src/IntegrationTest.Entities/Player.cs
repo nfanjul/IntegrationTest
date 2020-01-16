@@ -6,7 +6,5 @@ namespace IntegrationTest.Entities
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
-
-        public Position Position { get; set; }
     }
 }

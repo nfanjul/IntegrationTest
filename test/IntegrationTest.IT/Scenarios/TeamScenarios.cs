@@ -1,7 +1,10 @@
+using FluentAssertions;
 using IntegrationTest.Api.Models.Teams;
 using IntegrationTest.Entities;
 using IntegrationTest.IT.Attributes;
+using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -26,12 +29,15 @@ namespace IntegrationTest.IT.Scenarios
         [Fact]
         public async Task Get_All_Teams_Return_OK()
         {
-            // ITEST 7
+        // ITEST 7
             var response = await _fixture.Server.CreateRequest(Get.GetAllTeams).GetAsync();
-            response.EnsureSuccessStatusCode();
-            var json = await response.Content.ReadAsStringAsync();
-            var result = JsonConvert.DeserializeObject<List<Team>>(json);
-            Assert.True(result.Any());
+            response.Should().NotBeNull();
+            response.StatusCode.Should().BeEquivalentTo(StatusCodes.Status200OK);
+
+            var content = await response.Content.ReadAsStringAsync();
+            var teams = JsonConvert.DeserializeObject<List<Team>>(content);
+            teams.Any().Should().BeTrue();
+            teams.Count().Should().Be(3);
         }
 
         [Fact]
@@ -47,11 +53,14 @@ namespace IntegrationTest.IT.Scenarios
             var response = await _fixture.Server.CreateClient()
                 .PostAsync(Post.Team, content);
 
-            response.EnsureSuccessStatusCode();
-            var json = await response.Content.ReadAsStringAsync();
-            var result = JsonConvert.DeserializeObject<Team>(json);
-            Assert.Equal("UP Langreo", result.Name);
+            response.Should().NotBeNull();
+            response.StatusCode.Should().BeEquivalentTo(StatusCodes.Status200OK);
+
+            var contentResponse = await response.Content.ReadAsStringAsync();
+            var teamResponse = JsonConvert.DeserializeObject<Team>(contentResponse);
+            teamResponse.Should().NotBeNull();
+            teamResponse.Name.Should().Be("UP Langreo");
         }
-        // ITEST 9 --
+
     }
 }

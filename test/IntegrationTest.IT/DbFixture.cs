@@ -9,7 +9,7 @@ namespace IntegrationTest.IT
             TablesToIgnore = new[]
             {
                 "__EFMigrationsHistory",
-                "Positions",
+                "Players",
             },
         };
 
