@@ -4,7 +4,6 @@ using IntegrationTest.Entities;
 using IntegrationTest.IT.Attributes;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -31,6 +30,7 @@ namespace IntegrationTest.IT.Scenarios
         {
         // ITEST 7
             var response = await _fixture.Server.CreateRequest(Get.GetAllTeams).GetAsync();
+            // ITEST 8
             response.Should().NotBeNull();
             response.StatusCode.Should().BeEquivalentTo(StatusCodes.Status200OK);
 
@@ -41,7 +41,7 @@ namespace IntegrationTest.IT.Scenarios
         }
 
         [Fact]
-        // ITEST 8
+        // ITEST 9
         [Reset]
         public async Task Create_New_Team_And_Return_OK()
         {

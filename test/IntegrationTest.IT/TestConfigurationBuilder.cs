@@ -7,7 +7,6 @@ namespace IntegrationTest.IT
     {
         public IConfigurationRoot Build()
         {
-            // ITEST 2
             return new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.testing.json", optional: false)

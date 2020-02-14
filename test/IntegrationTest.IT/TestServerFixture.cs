@@ -18,6 +18,7 @@ namespace IntegrationTest.IT
 
         public TestServer CreateServer()
         {
+            // ITEST 2
             Configuration = new TestConfigurationBuilder().Build();
             // ITEST 3
             var builder = new WebHostBuilder().UseStartup<TestStartup>();
