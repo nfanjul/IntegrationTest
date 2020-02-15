@@ -1,13 +1,12 @@
 ﻿using IntegrationTest.Api.Configuration;
 using IntegrationTest.Api.Data;
+using IntegrationTest.Api.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Swashbuckle.AspNetCore.Swagger;
-using System;
+using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
 
 namespace IntegrationTest.Api
 {
@@ -27,23 +26,16 @@ namespace IntegrationTest.Api
             services.Configure<AppSettings>(Configuration);
             services.AddTransient<AplicationDbContextSeed>();
 
-            // SHOW 2
-            services.AddDbContext<AplicationDbContext>(options =>
-             options.UseSqlServer(appSettings.ConnectionString,
-                sqlServerOptionsAction: sqlOptions =>
-                {
-                    sqlOptions.MigrationsAssembly(typeof(Startup).Assembly.FullName);
-                    sqlOptions.EnableRetryOnFailure(maxRetryCount: 15, maxRetryDelay: TimeSpan.FromSeconds(30), errorNumbersToAdd: null);
-                }));
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddBDConfiguration(appSettings);
 
+            services.AddConfiguration();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new Info { Title = "Integration Test API", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Integration Test API", Version = "v1" });
             });
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -56,11 +48,11 @@ namespace IntegrationTest.Api
 
             app.UseSwagger();
             app.UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Integration Test V1");
-                c.RoutePrefix = string.Empty;
-            });
-            app.UseMvc();
+             {
+                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Integration Test V1");
+                 c.RoutePrefix = string.Empty;
+             });
+            app.AddRoutingConfiguration();
         }
 
         private AppSettings GetAppSettingsConfig()
@@ -70,5 +62,6 @@ namespace IntegrationTest.Api
 
             return appSettings;
         }
+
     }
 }

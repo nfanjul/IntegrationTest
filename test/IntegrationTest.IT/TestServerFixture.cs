@@ -1,7 +1,9 @@
 ﻿using IntegrationTest.Api.Data;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Hosting;
 
 namespace IntegrationTest.IT
 {
@@ -9,24 +11,47 @@ namespace IntegrationTest.IT
     {
         // ITEST 1
         public TestServer Server { get; private set; }
-        private IConfigurationRoot Configuration;
+        public AplicationDbContext AplicationDbContext { get; private set; }
+
+        private readonly IConfiguration _configuration;
 
         public TestServerFixture()
         {
+            // ITEST 2
+            _configuration = new TestConfigurationBuilder().Build();
             Server = CreateServer();
+            AplicationDbContext = GetAplicationDbContext();
+        }
+
+        public AplicationDbContext GetAplicationDbContext()
+        {
+            var optionsBuilder = new DbContextOptionsBuilder<AplicationDbContext>();
+            optionsBuilder.UseSqlServer(_configuration["ConnectionString"], setup =>
+            {
+                setup.MigrationsAssembly(typeof(AplicationDbContext).Assembly.FullName);
+            });
+
+            return new AplicationDbContext(optionsBuilder.Options);
         }
 
         public TestServer CreateServer()
         {
-            // ITEST 2
-            Configuration = new TestConfigurationBuilder().Build();
             // ITEST 3
-            var builder = new WebHostBuilder().UseStartup<TestStartup>();
-            builder.UseConfiguration(Configuration);
-            
-            var server = new TestServer(builder);
-            server.Host.BuildContext();
-            return server;
+            var host = new HostBuilder()
+                .ConfigureWebHost(webBuilder =>
+                {
+                    webBuilder
+                        .UseTestServer()
+                        .ConfigureAppConfiguration((context, builder) =>
+                        {
+                            builder.AddConfiguration(_configuration);
+                        })
+                        .UseStartup<TestStartup>();
+                }).Start();
+
+            host.BuildContext();
+
+            return host.GetTestServer();
         }
 
     }

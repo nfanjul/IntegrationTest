@@ -1,13 +1,9 @@
-﻿using IntegrationTest.Api;
-using IntegrationTest.Api.Configuration;
+﻿using IntegrationTest.Api.Configuration;
 using IntegrationTest.Api.Data;
+using IntegrationTest.Api.Extensions;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Newtonsoft.Json;
-using System;
 
 namespace IntegrationTest.IT
 {
@@ -23,30 +19,16 @@ namespace IntegrationTest.IT
         public void ConfigureServices(IServiceCollection services)
         {
             var appSettings = GetAppSettingsConfig();
+            services.Configure<AppSettings>(Configuration);
             services.AddTransient<AplicationDbContextSeed>();
-            services.AddDbContext<AplicationDbContext>(options =>
-             options.UseSqlServer(appSettings.ConnectionString,
-                sqlServerOptionsAction: sqlOptions =>
-                {
-                    sqlOptions.MigrationsAssembly(typeof(Startup).Assembly.FullName);
-                    sqlOptions.EnableRetryOnFailure(maxRetryCount: 15, maxRetryDelay: TimeSpan.FromSeconds(30), errorNumbersToAdd: null);
-                }));
 
-            services.AddMvcCore()
-                .AddJsonFormatters()
-                .AddJsonOptions(options =>
-                {
-                    options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
-                    options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
-                    options.SerializerSettings.DefaultValueHandling = DefaultValueHandling.Ignore;
-                })
-                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddBDConfiguration(appSettings);
+            services.AddConfiguration();
         }
 
         public void Configure(IApplicationBuilder app)
         {
-            app.UseStaticFiles();   
-            app.UseMvc();
+            app.AddRoutingConfiguration();
         }
 
         public AppSettings GetAppSettingsConfig()

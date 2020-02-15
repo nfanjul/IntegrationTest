@@ -1,19 +1,19 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Polly;
 using System;
-using System.Data.SqlClient;
 
 namespace IntegrationTest.Api.Extensions
 {
     public static class IWebHostExtensions
     {
         // SHOW 5
-        public static IWebHost MigrateDbContext<TContext>(this IWebHost webHost, Action<TContext, IServiceProvider> seeder) where TContext : DbContext
+        public static IHost MigrateDbContext<TContext>(this IHost host, Action<TContext, IServiceProvider> seeder) where TContext : DbContext
         {
-            using (var scope = webHost.Services.CreateScope())
+            using (var scope = host.Services.CreateScope())
             {
                 var services = scope.ServiceProvider;
                 var logger = services.GetRequiredService<ILogger<TContext>>();
@@ -39,7 +39,7 @@ namespace IntegrationTest.Api.Extensions
                 logger.LogInformation($"Migrated database associated with context {typeof(TContext).Name}");
             }
 
-            return webHost;
+            return host;
         }
     }
 }

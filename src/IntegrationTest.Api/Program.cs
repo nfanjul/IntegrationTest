@@ -1,7 +1,7 @@
 ﻿using IntegrationTest.Api.Data;
-using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Hosting;
 
 namespace IntegrationTest.Api
 {
@@ -10,12 +10,15 @@ namespace IntegrationTest.Api
         public static void Main(string[] args)
         {
             // SHOW 3
-            CreateWebHostBuilder(args).Build().BuildContext().Run();
+            CreateHostBuilder(args).Build().BuildContext().Run();
         }
 
-        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>()
+        public static IHostBuilder CreateHostBuilder(string[] args) =>
+            Host.CreateDefaultBuilder(args)
+                .ConfigureWebHostDefaults(webBuilder =>
+                {
+                    webBuilder.UseStartup<Startup>();
+                })
                 .ConfigureAppConfiguration((context, configurationBuilder) =>
                     {
                         var environmentName = context.HostingEnvironment.EnvironmentName;
