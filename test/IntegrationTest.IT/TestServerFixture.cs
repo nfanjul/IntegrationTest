@@ -9,7 +9,7 @@ namespace IntegrationTest.IT
 {
     public class TestServerFixture
     {
-        // ITEST 1
+        // SHOW 1
         public TestServer Server { get; private set; }
         public AplicationDbContext AplicationDbContext { get; private set; }
 
@@ -17,8 +17,8 @@ namespace IntegrationTest.IT
 
         public TestServerFixture()
         {
-            // ITEST 2
             _configuration = new TestConfigurationBuilder().Build();
+            // SHOW 2 -->
             Server = CreateServer();
             AplicationDbContext = GetAplicationDbContext();
         }
@@ -36,7 +36,6 @@ namespace IntegrationTest.IT
 
         public TestServer CreateServer()
         {
-            // ITEST 3
             var host = new HostBuilder()
                 .ConfigureWebHost(webBuilder =>
                 {

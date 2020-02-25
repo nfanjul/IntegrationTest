@@ -13,11 +13,11 @@ namespace IntegrationTest.Api.Data
         public AplicationDbContext(DbContextOptions<AplicationDbContext> options) 
             : base(options) { }
 
-        protected override void OnModelCreating(ModelBuilder builder)
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(builder);
-            SetTeamModel(builder);
-            SetPlayerModel(builder);
+            base.OnModelCreating(modelBuilder);
+            SetTeamModel(modelBuilder);
+            SetPlayerModel(modelBuilder);
         }
 
         private void SetTeamModel(ModelBuilder modelBuilder)
@@ -29,7 +29,6 @@ namespace IntegrationTest.Api.Data
 
         private static List<Team> TeamSeed()
         {
-            // SHOW 3
             return new List<Team>()
             {
                 new Team()

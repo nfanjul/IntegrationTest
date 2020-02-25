@@ -15,7 +15,6 @@ namespace IntegrationTest.Api.Extensions
 
         public static void AddBDConfiguration(this IServiceCollection services, AppSettings appSettings)
         {
-            // SHOW 2
             services.AddDbContext<AplicationDbContext>(options =>
              options.UseSqlServer(appSettings.ConnectionString,
                 sqlServerOptionsAction: sqlOptions =>

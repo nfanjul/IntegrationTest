@@ -5,11 +5,10 @@ using Microsoft.Extensions.Hosting;
 
 namespace IntegrationTest.Api
 {
-    public class Program
+    public static class Program
     {
         public static void Main(string[] args)
         {
-            // SHOW 3
             CreateHostBuilder(args).Build().BuildContext().Run();
         }
 

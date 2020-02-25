@@ -14,6 +14,7 @@ namespace IntegrationTest.IT.Attributes
 
         public override void Before(MethodInfo methodUnderTest)
         {
+            // ->
             DbFixture.Reset(_connectionString);
         }
     }

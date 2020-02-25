@@ -1,6 +1,7 @@
 version: '3.4'
 
 services:
+# SHOW 12
   sql-data-test:
     environment:
       - SA_PASSWORD=Pass@word
@@ -8,6 +9,7 @@ services:
     ports:
       - "1433:1433"
 
+ # SHOW 13
   integrationtest.test:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development

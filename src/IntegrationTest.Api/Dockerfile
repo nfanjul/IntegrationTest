@@ -1,5 +1,7 @@
 ARG BUILD_CONFIGURATION=Debug
 
+# SHOW 9
+
 FROM mcr.microsoft.com/dotnet/core/aspnet:3.1-buster-slim AS base
 WORKDIR /app
 EXPOSE 80

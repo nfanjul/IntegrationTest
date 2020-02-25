@@ -12,7 +12,6 @@ namespace IntegrationTest.Api
 {
     public class Startup
     {
-        // SHOW 1
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;

@@ -11,8 +11,7 @@ namespace IntegrationTest.Api.Data
     {
         private readonly AplicationDbContext _context;
         private readonly ILogger<AplicationDbContextSeed> _logger;
-        // SHOW 6
-        // SHOW 7 --
+
         public AplicationDbContextSeed(AplicationDbContext context, ILogger<AplicationDbContextSeed> logger)
         {
             _context = context;

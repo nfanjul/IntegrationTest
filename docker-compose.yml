@@ -1,9 +1,11 @@
 version: '3.4'
 
 services:
+# SHOW 10
   sql-data-test:
     image: microsoft/mssql-server-linux:2017-latest
 
+  # SHOW 11
   integrationtest.test:
     image: ${DOCKER_REGISTRY-}integrationtest.test:${TAG:-latest}
     build:

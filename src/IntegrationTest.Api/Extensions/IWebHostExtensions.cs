@@ -10,7 +10,6 @@ namespace IntegrationTest.Api.Extensions
 {
     public static class IWebHostExtensions
     {
-        // SHOW 5
         public static IHost MigrateDbContext<TContext>(this IHost host, Action<TContext, IServiceProvider> seeder) where TContext : DbContext
         {
             using (var scope = host.Services.CreateScope())

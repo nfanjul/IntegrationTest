@@ -8,7 +8,6 @@ namespace IntegrationTest.Api.Data
     {
         public static IHost BuildContext(this IHost host)
         {
-            // SHOW 4
             host
                 .MigrateDbContext<AplicationDbContext>((context, services) =>
                 {
