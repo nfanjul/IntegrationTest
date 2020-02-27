@@ -7,7 +7,7 @@ Net Core Version: 3.1
 ### 1. Execute test with docker
 
 ```
-docker-compose Build
+docker-compose build
 ```
 ```
 docker-compose up integrationtest.test
